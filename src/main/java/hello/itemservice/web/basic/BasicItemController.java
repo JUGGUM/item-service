@@ -30,14 +30,19 @@ public class BasicItemController {
      */
     @PostConstruct
     public void init() {
-        itemRepository.save(new Item("testA", 10000, 10));
-        itemRepository.save(new Item("testB", 20000, 20));
+        itemRepository.save(new Item("itemA", 10000, 10));
+        itemRepository.save(new Item("itemB", 20000, 20));
     }
 
     @GetMapping("/{itemId}")
-    public String item(@PathVariable long itemId, Model model) {
+    public String item(@PathVariable(value = "itemId") Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "basic/item";
+    }
+
+    @GetMapping("/add")
+    public String addForm() {
+        return "basic/addForm";
     }
 }
